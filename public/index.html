@@ -1,82 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="assets/imgs/xadrez.png" type="image/x-icon">
+    <title>Xadrez</title>
 </head>
 
 <body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
+
+    <!--Menu de Navegação-->
+    <div id="header" class="nav">
+        <div class="container">
+            <div class="menuNavegacao">
+                <a href="#home"><img id="imgLogo" src="assets/imgs/rainha.png"></a>
+                Xadrez
+                <ul>
+                    <a href="#historia">
+                        <li>História</li>
+                    </a>
+                    <a href="#ods">
+                        <li>ODS</li>
+                    </a>
+                    <a href="#melhores">
+                        <li>Melhores</li>
+                    </a>
+                    <a href="#sobreMim">
+                        <li>Sobre Mim</li>
+                    </a>
+                    <a href="#campeonato">
+                        <li>Campeonato</li>
+                    </a>
+                </ul>
+
+                <div class="login_btn">
+                    <a href="login.html">
+                        <div class="botaoLogin">
+                            <h3>Login</h3>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
         </div>
-      </div>
     </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-        <span class="version">v1.0.0</span>
-      </div>
+
+
+    <div id="home">
+        <div class="container">
+            <div class="conteudoHome">
+                <img class="imgTituloXadrez">
+            </div>
+        </div>
     </div>
-  </body>
+
+
+    <div id="historia">
+        <div class="container">
+            <div class="conteudoHistoria">
+                <div class="retanguloBranco">
+                    <img id="imgHistoria" src="assets/imgs/antigo.png">
+                    <div class="textoHistoria">
+                        <h2>História</h2>
+                        <p>O xadrez é um jogo de estratégia com origens na Índia do século VI, onde era chamado de
+                            chaturanga. Ele se espalhou para a Pérsia, transformando-se em shatranj. Com a expansão do
+                            Islã, o jogo chegou ao mundo árabe e, eventualmente, à Europa durante a Idade Média. Na
+                            Europa medieval, especialmente entre os séculos XV e XVI, o jogo sofreu modificações
+                            significativas, incluindo o aumento do poder da rainha e a modernização dos movimentos do
+                            bispo e do peão. O século XIX viu a padronização das regras e a realização de competições
+                            internacionais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="ods">RELAÇÃO COM OS OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL </h2>
+
+    <div id="ods" class="social">
+        <div class="container">
+            <div class="boxes">
+                <div class="box">
+                    <img src="assets/imgs/ads4.png">
+                    <p>O jogo desenvolve habilidades cognitivas fundamentais, como pensamento crítico, resolução de
+                        problemas e tomada de decisões.
+                        Aprimorando o desempenho acadêmico geral dos alunos, especialmente em áreas como matemática,
+                        contribuindo assim para uma educação de qualidade acessível a todos.
+                    </p>
+                </div>
+                <div class="box">
+                    <img src="assets/imgs/ads10.png">
+                    <p>O xadrez transcende barreiras sociais, econômicas e culturais.introduzem o xadrez em escolas
+                        localizadas em áreas desfavorecidas ou que proporcionam oportunidades para grupos marginalizados
+                        podem contribuir significativamente para a redução das desigualdades.</p>
+                </div>
+                <div class="box">
+                    <img src="assets/imgs/ads16.jpg">
+                    <p>O xadrez é um jogo para promover a paz e resolver conflitos de maneira pacífica. O xadrez pode
+                        auxiliar no desenvolvimento de habilidades de comunicação e resolução de conflitos em
+                        comunidades e instituições. Ao promover uma cultura de respeito, ética e fair play</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="melhores">
+        <div class="container">
+            <div class="conteudoGaleria">
+                <h2>Melhores Jogadores</h2>
+                <div class="imagensMelhores">
+                    <div class="FotoTexto">
+                        <img class="imagemGaleria" src="assets/imgs/mequinho.jpg">
+                        <p> <b>Mequinho</b> <br> Mequinho é o apelido de Henrique Mecking, um dos maiores enxadristas
+                            brasileiros e um dos
+                            principais jogadores de xadrez do mundo na década de 70.
+                            Mequinho venceu o Campeonato Brasileiro de Xadrez em 1965, tornando-se o campeão mais jovem
+                            na história do torneio.
+                            No auge de sua carreira, em 1977, Mecking chegou a ser o terceiro jogador mais bem
+                            classificado do mundo, atrás apenas de Anatoly Karpov e Viktor Korchnoi.
+                        </p>
+                    </div>
+                    <div class="FotoTexto">
+                        <img class="imagemGaleria" src="assets/imgs/karpov.jpg">
+                        <p><b>Anatoly Karpov </b><br> Nascido na Rússia, ele se destacou e alcançou o título de Grande
+                            Mestre aos
+                            19 anos, sendo especialmente conhecido por seu profundo entendimento do jogo, o que o levou
+                            a conquistar inúmeros títulos e vitórias.
+                            Foi campeão mundial de xadrez de 1975 a 1985 e de 1993 a 1999, totalizando 16 anos com o
+                            título mundial e tornando-se o campeão mundial que mais partidas realizou
+                        </p>
+                    </div>
+                    <div class="FotoTexto">
+                        <img class="imagemGaleria" src="assets/imgs/kasparov.jpg">
+                        <p> <b> Garry Kasparov</b> <br> Nascido em Azerbaijão. Kasparov não apenas alcançou o ápice do
+                            xadrez
+                            mundial, mas também teve uma carreira ilustre, repleta de títulos e contribuições
+                            significativas ao esporte.
+                            Aos 22 anos, Kasparov se tornou o mais jovem Campeão Mundial de Xadrez ao derrotar Anatoly
+                            Karpov.Esta vitória marcou o início de uma das carreiras mais dominantes na história do
+                            xadrez.
+                            Era famoso por suas partidas contra computadores de xadrez, em 1996, ele venceu o
+                            supercomputador IBM Deep Blue. </p>
+                    </div>
+                    <div class="FotoTexto">
+                        <img class="imagemGaleria" src="assets/imgs/carlsen.png">
+                        <p> <b> Magnus Carlsen </b> <br> Nascido na Noruega, sendo conhecido tanto por seu incrível
+                            talento natural
+                            quanto por seu estilo de jogo versátil e agressivo.
+                            Em janeiro de 2010, Carlsen tornou-se o jogador mais jovem a atingir o topo do ranking
+                            mundial, aos 19 anos. Ele alcançou um rating Elo de 2882, o mais alto já registrado na
+                            história do xadrez.
+                            Em 2013 Carlsen venceu Anand, tornando-se Campeão Mundial de Xadrez. Essa
+                            vitória marcou o início de sua era de dominância no xadrez mundial.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sobreMim">
+        <div class="container">
+
+            <div class="desenvolvedoraAlinha">
+                <img class="imgYo" src="assets/imgs/me.jpeg">
+            </div>
+            <div class="textoSobreMim">
+                <h2>Sobre Mim</h2>
+                <p>Olá, meu nome é Igor Daniel, tenho 18 anos e nasci em São Paulo. Meus pais são imigrantes, portanto,
+                    a cultura na qual fui criado é uma mistura da cultura brasileira e a de seus países de origem,
+                    sempre tive um
+                    carinho especial por questões de raciocínio lógico e números, e foi assim que fui introduzido ao
+                    xadrez.
+                    Além do xadrez, sempre fui apaixonado por jogos, especialmente jogos de navegador. Em 2020,
+                    inscrevi-me na Etec Cidade de Tiradentes, onde fui aceito para cursar Informática para Internet.
+                    Após concluir o curso, atualmente estou cursando Análise e Desenvolvimento de Sistemas na SPTECH,
+                    unindo algumas das minhas maiores paixões e desenvolvendo este site.</p>
+            </div>
+
+        </div>
+    </div>
+    <div id="campeonato">
+        <div class="container">
+            <div class="conteudoGaleria">
+                <h2>Campeonato</h2>
+                <div class="imagensMelhores">
+                    <img class="imagemCamp" src="assets/imgs/galeria1.jpeg">
+                    <img class="imagemCamp" src="assets/imgs/galeria6.jpeg">
+                    <img class="imagemCamp" src="assets/imgs/galeria3.jpeg">
+                    <img class="imagemCamp" src="assets/imgs/galeria4.jpeg">
+                    <img class="imagemCamp" src="assets/imgs/galeria5.jpeg">
+                    <img class="imagemCamp" src="assets/imgs/galeria2.jpeg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <div class="alinhaFooter">
+                <h3>@copyright 2024</h3>
+            </div>
+            <div class="alinhaFooter">
+                <h4>Informações</h4>
+                <div class="navegacaoFooter">
+                    <ul>
+                        <li><a href="#historia">História</a></li>
+                        <li><a href="#melhores">Melhores</a></li>
+                        <li><a href="#sobreMim">Sobre Mim</a></li>
+                        <li><a href="#campeonato">Campeotado</a></li>
+                        <!-- <li><a href="#sobreMim">Sobre Mim</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alinhaFooterRede">
+                <h4>Contato:</h4>
+                <div class="redesSociais">
+                    <a href="https://www.instagram.com/igor_mamani/"><img class="imagensRedesSociais"
+                            src="assets/imgs/insta.png"></a>
+                    <a href="https://github.com/zack-css"><img class="imagensRedesSociais" src="assets/imgs/git.png"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 
 </html>
+
+<script>
+    const navbar = document.getElementById("header");
+
+    const ativarScroll = () => {
+        navbar.classList.toggle("alternada", scrollY > 0);
+    }
+
+    window.addEventListener('scroll', ativarScroll);
+
+    // Array
+    const imagens = [
+        "assets/imgs/plano1.jpg",
+        "assets/imgs/plano2.jpg",
+        "assets/imgs/plano3.jpg"
+    ];
+
+    let indice = 0;
+
+    const trocarImagem = () => {
+        document.querySelector('.imgTituloXadrez').src = imagens[indice];
+
+        indice = (indice + 1) % imagens.length;
+    };
+
+    trocarImagem();
+
+    setInterval(trocarImagem, 4000);
+</script>

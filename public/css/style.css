@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poetsen+One&display=swap');
+
+* {
+    margin: 0;
+    scroll-behavior: smooth;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: black transparent;
+  }
+  
+
+
+.container {
+    width: 85%;
+    height: 100%;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    background-color: transparent;
+    position: fixed;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+#home {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to bottom, rgb(255, 248, 154), #ffffff);
+}
+
+#imgLogo {
+    width: 100px;
+}
+
+#imgXADREZ {
+    width: 100px;
+}
+
+.menuNavegacao {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #000000;
+    font-weight: bold;
+}
+
+.menuNavegacao ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 65%;
+    padding: 0;
+}
+
+.menuNavegacao a li {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    list-style: none;
+    padding: 8px 30px;
+    position: relative;
+    border-left: #000000 4px outset;
+}
+
+.menuNavegacao a li:hover {
+    background-color: #000000; 
+    transition: background-color 0.3s ease; 
+    color: white;
+}
+
+#imgLogo{
+    width: 8vh;
+}
+
+.menuNavegacao a {
+    text-decoration: none;
+}
+
+.menuNavegacao li::before {
+    content: '';
+    position: absolute;
+    background-size: cover;
+    top: 3px;
+    left: 3px;
+    width: 30px;
+    height: 20px;
+}
+
+.login_btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+
+
+.botaoLogin { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12vw;
+    height: 5vh;
+    background-color: #000000;
+    border-radius: 4px;
+    box-shadow: 1px 5px 2px #ffffff;
+    position: relative;
+}
+
+.botaoLogin h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.conteudoHome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.imgTituloXadrez {
+    width: 100%;
+    height: 80%;
+    border: 6px groove rgb(0, 0, 0);
+    border-radius: 20px;
+    transition: transform 1s ease-in-out;
+    
+}
+
+
+
+#historia {
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255 245 195));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav.alternada {
+    background-color: rgba(255, 255, 255, 0.527);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(0, 0, 0, 0.2);
+}
+
+.conteudoHistoria {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.retanguloBranco {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-size: cover;
+    width: 92%;
+    height: 75%;
+    position: relative;
+}
+
+.retanguloBranco::before {
+    content: '';
+    background-size: cover;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 70px;
+    height: 100px;
+}
+
+
+
+.textoHistoria {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 38%;
+    height: 70%;
+}
+
+.textoHistoria h2 {
+    font-size: 50px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.textoHistoria p {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+#imgHistoria {
+    width: 400px;
+    border: 4px black solid;
+    border-radius: 9%;
+}
+
+#imgHistoria:hover  {
+    box-shadow: -8px 8px black;
+    transition: 200ms;
+    transform: scale(1.1);
+
+}
+
+.social {
+    background-color: rgb(255 245 195);
+    display: flex;
+  }
+  
+  .social .container {
+    justify-content: center;
+    display: flex;
+    margin: auto;
+  }
+  
+  .box img {
+    width: 15vw;
+    border-radius: 20px;
+    
+
+  }
+
+  .box img:hover{
+    box-shadow: -8px 8px #000000;
+    transition: 200ms;
+    transform: scale(1.1);
+  }
+  
+  .social .container .boxes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px 0;
+    gap: 20px;
+  }
+  
+  .social p {
+    text-align: center;
+    width: 21vw;
+    text-align: justify;
+    font-weight: 600;
+  }
+  
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .ods{
+    text-align: center;
+    padding-top: 2%;
+    font-size: 2rem;
+    background-color: rgb(255 245 195);
+  }
+  
+
+#melhores {
+    width: 100%;
+    display: flex;
+    min-height: 100vh;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(to bottom, rgb(255 245 195), rgb(255, 255, 255));
+}
+
+#melhores::before {
+    content: '';
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    right: 80px;
+    height: 350px;
+    width: 160px;
+}
+
+#melhores .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.conteudoGaleria {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+}
+
+.conteudoGaleria h2 {
+    font-size: 50px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.imagensMelhores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 90%;
+}
+.FotoTexto{
+    display: flex;
+    justify-content: space-between;
+    gap: 6%;
+}
+
+.imagemGaleria {
+    width: 45%;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.FotoTexto P {
+    font-size: 1.1rem;
+    line-height: 30px;}
+
+.imagemGaleria:hover {
+    box-shadow: -8px 8px #000000;
+    transition: 200ms;
+    transform: scale(1.1);
+
+}
+
+.imagemCamp {
+    width: 45%;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    border: black 6px solid;
+
+}
+
+.imagemCamp:hover {
+    transition: 200ms;
+    transform: scale(1.1);
+}
+
+
+
+#sobreMim {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 240, 167));
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#sobreMim .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.textoSobreMim {
+    width: 50%;
+}
+
+.textoSobreMim h2 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.textoSobreMim p {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+
+
+.desenvolvedoraAlinha {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 80%;
+}
+
+.imgYo {
+    width:22vw;
+    border: black 6px solid;
+    border-radius: 30px;
+}
+
+.imgYo:hover  {
+    transition: 200;
+    transform: scale(1.1);
+    box-shadow: -8px 8px #000000;
+}
+
+#campeonato {
+    width: 100%;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(to bottom, rgb(255, 240, 167), rgb(255, 255, 255));
+}
+
+
+
+
+#footer {
+    display: flex;
+    justify-content: center;
+    background-color: #ffe395;
+    width: 100%;
+    height: 28vh;
+}
+
+#footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alinhaFooter {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    width: 20%;
+    justify-content: center;
+}
+
+.alinhaFooterRede {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    width: 20%;
+}
+
+
+.navegacaoFooter ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    list-style: none;
+}
+
+.navegacaoFooter ul li a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.navegacaoFooter ul li {
+    padding-top: 5%;
+}
+
+.navegacaoFooter ul li a:hover{
+    color: rgba(128, 128, 128, 0.692)
+}
+
+.imagensRedesSociais {
+    margin-right: 20px;
+    width: 40px;
+}
+
+
