@@ -22,7 +22,20 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function pegar(pontos, idUsuario) {
+    
+    var instrucao = `
+
+    INSERT INTO resultadoMemoria VALUES ( null, '${pontos}', ${idUsuario}
+        );
+        
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    pegar
 };

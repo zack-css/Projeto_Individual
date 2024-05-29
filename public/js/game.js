@@ -53,10 +53,28 @@ const fimdeJogo = () => {
     if (carddasabilitado.length == 24) {
         clearInterval(this.loop);
         // alert(`Parabéns, ${player.innerHTML}. Seu tempo foi ${tempo.innerHTML} segundos`)
-        const tempoFinal = parseInt(tempo.innerHTML, 10); // Extrai e converte para número
+
+        let tempoFinal = parseInt(tempo.innerHTML, 10); // Extrai e converte para número
+
+
+        var idUsuario = sessionStorage.getItem('ID_USUARIO')
+
+        fetch(`/usuarios/pegar/${idUsuario}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                tempoPontuacaoServer: tempoFinal
+            }),
+        }).then(res => {
+            console.log(res);
+        });
         alert(`Parabéns!! Seu tempo foi ${tempo.innerHTML} segundos`)
         window.location = "./dashboard.html";
-        console.log(tempoFinal);
 
     }
 }

@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/pegar/:idUsuario", function (req, res) {
+    usuarioController.pegar(req, res);
+});
+
 module.exports = router;
