@@ -30,12 +30,12 @@ const personagens = [
     'torre_branco',
     'rainha_branco_peca',
     'rei_branco',
-    'peao_preto',
-    'bispo_preto',
-    'cavalo_preto',
-    'torre_preto',
-    'rainha_preta',
-    'rei_preto',
+    // 'peao_preto',
+    // 'bispo_preto',
+    // 'cavalo_preto',
+    // 'torre_preto',
+    // 'rainha_preta',
+    // 'rei_preto',
 ];
 
 const criarElemento = (tag, className) => {
@@ -50,7 +50,7 @@ let segundaCarta = '';
 const fimdeJogo = () => {
     const carddasabilitado = document.querySelectorAll('.card-dasabilitado');
 
-    if (carddasabilitado.length == 24) {
+    if (carddasabilitado.length == 12) {
         clearInterval(this.loop);
         // alert(`Parabéns, ${player.innerHTML}. Seu tempo foi ${tempo.innerHTML} segundos`)
 

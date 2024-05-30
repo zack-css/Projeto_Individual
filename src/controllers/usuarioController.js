@@ -49,7 +49,7 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    }else {
+    } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, email, senha)
@@ -75,28 +75,60 @@ function pegar(req, res) {
     var tempoPontuacao = req.body.tempoPontuacaoServer
     var idUsuario = req.params.idUsuario
 
-        usuarioModel.pegar(tempoPontuacao, idUsuario)
-            .then(
-                function (resultadoPegar) {
-                    console.log(`\nResultados encontrados: ${resultadoPegar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoPegar)}`); // transforma JSON em String
-                    res.json({
-                    
-                    })
-                    
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+    usuarioModel.pegar(tempoPontuacao, idUsuario)
+        .then(
+            function (resultadoPegar) {
+                console.log(`\nResultados encontrados: ${resultadoPegar.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultadoPegar)}`); // transforma JSON em String
+                res.json({
+
+                })
+
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function pontosUsuario(req, res) {
+    var idUsuario = req.params.idUsuario
+    usuarioModel.pontosUsuario(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function mediaDosUsuarios(req, res) {
+    usuarioModel.mediaDosUsuarios().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
 
 
 module.exports = {
     autenticar,
     cadastrar,
-    pegar
+    pegar,
+    pontosUsuario,
+    mediaDosUsuarios
 }

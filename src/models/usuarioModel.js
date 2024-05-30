@@ -26,7 +26,7 @@ function pegar(pontos, idUsuario) {
     
     var instrucao = `
 
-    INSERT INTO resultadoMemoria VALUES ( null, '${pontos}', ${idUsuario}
+    INSERT INTO resultadoMemoria VALUES ( null, ${pontos}, ${idUsuario}
         );
         
     `;
@@ -34,8 +34,28 @@ function pegar(pontos, idUsuario) {
     return database.executar(instrucao);
 }
 
+  function pontosUsuario(idUsuario) {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pontosUsuario()");
+    var instrucao = `
+    SELECT tempo as QtdUsuarios FROM resultadoMemoria where fkUsuario = ${idUsuario} order by idJogo desc limit 1;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function mediaDosUsuarios() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mediaDosUsuarios()");
+    var instrucao = `
+	SELECT round(avg(tempo),0) as QtdAvisos FROM resultadoMemoria;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+  
 module.exports = {
     autenticar,
     cadastrar,
-    pegar
+    pegar,
+    pontosUsuario,
+    mediaDosUsuarios
 };
