@@ -96,6 +96,7 @@ function pegar(req, res) {
 
 function pontosUsuario(req, res) {
     var idUsuario = req.params.idUsuario
+
     usuarioModel.pontosUsuario(idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -108,6 +109,23 @@ function pontosUsuario(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
   }
+
+  function maiorPontuacaoUser(req, res) {
+    var idUsuario = req.params.idUsuario
+    
+    usuarioModel.maiorPontuacaoUser(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
 
   function mediaDosUsuarios(req, res) {
     usuarioModel.mediaDosUsuarios().then(function (resultado) {
@@ -123,6 +141,33 @@ function pontosUsuario(req, res) {
     });
   }
 
+  function contar(req, res) {
+    usuarioModel.contar().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function abaixoMedia(req, res) {
+    usuarioModel.abaixoMedia().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
 
 
 module.exports = {
@@ -130,5 +175,8 @@ module.exports = {
     cadastrar,
     pegar,
     pontosUsuario,
-    mediaDosUsuarios
+    mediaDosUsuarios,
+    contar,
+    abaixoMedia,
+    maiorPontuacaoUser
 }

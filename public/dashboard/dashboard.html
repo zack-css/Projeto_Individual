@@ -2,20 +2,22 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario - Pagina do usuario</title>
-    
+
 
     <script src="../js/sessao.js"></script>
 
     <link rel="stylesheet" href="../css/style2.css">
+    <link rel="icon" href="../assets/imgs/xadrez.png">
+
     <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 </head>
 
-<body onload="obterDados(), obterDados2()">
+<body
+    onload="inicializarPagina()">
 
     <div class="janela">
         <div class="header-left">
@@ -30,15 +32,15 @@
             </div>
 
             <div class="btn-nav">
-            <a href="./areaUsuario.html">
-                <h3>Chat Geral</h3>
-            </a>
+                <a href="./game.html">
+                    <h3>Jogar Novamente</h3>
+                </a>
             </div>
 
 
             <div class="btn-nav">
-               <a href="../mural/mural.html" >
-                    <h3>Meus Comentários</h3>
+                <a href="./mural.html">
+                    <h3>Feedback</h3>
                 </a>
             </div>
 
@@ -47,31 +49,32 @@
             </div>
 
         </div>
+        <div class="dash">
+            <div class="cards">
+                <div class="kpi" id="div_qtdUsuariosAbaixoMeida">
+                    <span class="tooltiptext">Usuarios Acima da média</span>
+                </div>
+                <div class="kpi" id="div_qtdUsuarios">
+                    <span class="tooltiptext">Usuarios</span>
+                </div>
+                <div class="kpi" id="div_maiorPontualidadeUser">
+                    <span class="tooltiptext">Melhor Pontuação</span>
+                </div>
+            </div>
 
-        <div class="dash-right">
+            <div class="dash-right">
 
-           
+
                 <div class="graph">
-                    <canvas width="200" height="200" id="canvas_grafico"></canvas>
+                    <canvas width="200px" height="200px" id="canvas_grafico"></canvas>
 
-                    <canvas width="200" height="200" id="canvas_grafico2"></canvas>
+                    <canvas width="200px" height="200px" id="canvas_grafico2"></canvas>
                 </div>
 
+            </div>
+
         </div>
 
-        <div class="cards">
-            <h1>Quantidades</h1>
-            <div class="card"  id="div_qtdAvisos">
-                <span class="tooltiptext">Comentários</span>
-            </div>
-            <div class="card" id="div_qtdUsuarios">
-                <span class="tooltiptext">Usuarios</span>
-            </div>
-        </div>
-
-       
-
-      
     </div>
 
 
@@ -81,160 +84,273 @@
 
 <script>
 
+function inicializarPagina() {
+            obterDados();
+            obterDados2();
+            obterDadosKpiUsuarios();
+            obterDadosKpiAbaixoMedia();
+            obterDadosMaiorPontuacaoUser();
+        }
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     // verificar_autenticacao();
 
 
     function obterDados() {
-    fetch(`/usuarios/mediaDosUsuarios`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        fetch(`/usuarios/mediaDosUsuarios`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                plotar(resposta);
+                    plotar(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
+    }
 
-function obterDados2() {
-    let idUsuario = sessionStorage.ID_USUARIO
-    fetch(`/usuarios/pontosUsuario/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+    function obterDados2() {
+        let idUsuario = sessionStorage.ID_USUARIO
+        fetch(`/usuarios/pontosUsuario/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                
-                plotar2(resposta);
+
+                    plotar2(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
+    }
+
+    function obterDadosKpiUsuarios() {
+        fetch(`/usuarios/contar`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    KpiQtdUsuarios(resposta);
+                });
+            } else {
+                console.error('Erro no obterDadosKpiUsuarios');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosKpiAbaixoMedia() {
+        fetch(`/usuarios/abaixoMedia`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    KpiAbaixoMedia(resposta);
+                });
+            } else {
+                console.error('Erro no obterDadosKpiUsuarios');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosMaiorPontuacaoUser() {
+        let idUsuario = sessionStorage.ID_USUARIO
+
+        fetch(`/usuarios/maiorPontuacaoUser/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+
+                    KpimaiorPontuacaoUser(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
 
 
-function plotar(resposta) {
-    console.log('iniciando plotagem...');
+    function plotar(resposta) {
+        console.log('iniciando plotagem...');
 
         var dados = {
-            QtdAvisos: []
-         
+            mediaPontosUsuarios: []
+
         }
 
-        for(var i = 0; i < resposta.length; i++){
+        for (var i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            dados.QtdAvisos.push(registro.QtdAvisos)
+            dados.mediaPontosUsuarios.push(registro.mediaPontosUsuarios)
 
-         
+
         }
-       
-        div_qtdAvisos.innerHTML += `
-        
-    ${dados.QtdAvisos}
-               
-        `; 
 
-    const ctx = document.getElementById('canvas_grafico').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Média'],
-            datasets: [{
-                label: 'Média dos usuarios',
-                data: [dados.QtdAvisos],
-                backgroundColor: [
-                    '#febf39'
-                    
-                ],
-                borderColor: [
-                    'white'
-                    
-                ],
-                borderWidth: 1
+        //     div_qtdUsuariosAbaixoMeida.innerHTML += `
+
+        // ${dados.mediaPontosUsuarios}
+
+        //     `; 
+
+        const ctx = document.getElementById('canvas_grafico').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Média'],
+                datasets: [{
+                    label: 'Média dos usuarios',
+                    data: [dados.mediaPontosUsuarios],
+                    backgroundColor: [
+                        '#febf39'
+
+                    ],
+                    borderColor: [
+                        'white'
+
+                    ],
+                    borderWidth: 1
+                },
+                ]
             },
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 50,
-                        min: 0
-                    }
-                }],
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 50,
+                            min: 0
+                        }
+                    }],
+                }
             }
-        }
-    });
-    
-}
+        });
 
-function plotar2(resposta) {
-    console.log('iniciando plotagem...');
+    }
+
+    function plotar2(resposta) {
+        console.log('iniciando plotagem...');
+
+        var dados = {
+            resultadoTempo: []
+
+        }
+
+        for (var i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.resultadoTempo.push(registro.resultadoTempo)
+
+
+        }
+
+        // div_qtdUsuarios.innerHTML += `
+
+        //     ${dados.resultadoTempo}
+
+        // `; 
+
+        const ctx = document.getElementById('canvas_grafico2').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tempo'],
+                datasets: [{
+                    label: 'Sua Pontuação',
+                    data: [dados.resultadoTempo],
+                    backgroundColor: [
+                        'black'
+
+                    ],
+                    borderColor: [
+                        'white'
+
+                    ],
+                    borderWidth: 1
+                },
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 50,
+                            min: 0
+                        }
+                    }],
+                }
+            }
+        });
+
+    }
+
+    function KpiQtdUsuarios(resposta) {
 
         var dados = {
             QtdUsuarios: []
-         
+
         }
 
-        for(var i = 0; i < resposta.length; i++){
+        for (var i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             dados.QtdUsuarios.push(registro.QtdUsuarios)
 
-         
-        }
-       
-        div_qtdUsuarios.innerHTML += `
-        
-            ${dados.QtdUsuarios}
-               
-        `; 
 
-    const ctx = document.getElementById('canvas_grafico2').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Tempo'],
-            datasets: [{
-                label: 'Sua Pontuação',
-                data: [dados.QtdUsuarios],
-                backgroundColor: [
-                    '#32b9cd'
-                    
-                ],
-                borderColor: [
-                    'white'
-                    
-                ],
-                borderWidth: 1
-            },
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 50,
-                        min: 0
-                    }
-                }],
-            }
         }
-    });
-    
-}
 
-// function Mostrar
+        div_qtdUsuarios.innerHTML += `${dados.QtdUsuarios}`;
+    }
+
+    function KpiAbaixoMedia(resposta) {
+
+        var dados = {
+            usuarios_abaixo_da_media: []
+
+        }
+
+        for (var i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.usuarios_abaixo_da_media.push(registro.usuarios_abaixo_da_media)
+
+
+        }
+
+        div_qtdUsuariosAbaixoMeida.innerHTML += `${dados.usuarios_abaixo_da_media}`;
+
+    }
+
+    function KpimaiorPontuacaoUser(resposta) {
+
+        var dados = {
+            menor_tempo: []
+
+        }
+
+        for (var i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.menor_tempo.push(registro.menor_tempo)
+
+
+        }
+
+        div_maiorPontualidadeUser.innerHTML += `${dados.menor_tempo}`;
+
+    }
 
 </script>

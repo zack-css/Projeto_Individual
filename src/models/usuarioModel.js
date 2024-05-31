@@ -37,25 +37,66 @@ function pegar(pontos, idUsuario) {
   function pontosUsuario(idUsuario) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pontosUsuario()");
     var instrucao = `
-    SELECT tempo as QtdUsuarios FROM resultadoMemoria where fkUsuario = ${idUsuario} order by idJogo desc limit 1;
+    SELECT tempo as resultadoTempo FROM resultadoMemoria where fkUsuario = ${idUsuario} order by idJogo desc limit 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
+function maiorPontuacaoUser(idUsuario) {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function maiorPontuacaoUser()");
+    var instrucao = `
+    SELECT MIN(tempo) AS menor_tempo
+    FROM resultadoMemoria
+    WHERE fkUsuario = ${idUsuario};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+
 function mediaDosUsuarios() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mediaDosUsuarios()");
     var instrucao = `
-	SELECT round(avg(tempo),0) as QtdAvisos FROM resultadoMemoria;
+	SELECT round(avg(tempo),0) as mediaPontosUsuarios FROM resultadoMemoria;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
+function contar() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function contar()");
+    var instrucao = `
+    SELECT count(id) as QtdUsuarios FROM usuario;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
+  function abaixoMedia() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function contar()");
+    var instrucao = `
+    SELECT COUNT(DISTINCT fkUsuario) AS usuarios_abaixo_da_media
+    FROM resultadoMemoria
+    WHERE tempo < (
+        SELECT  round(avg(tempo),0)
+        FROM resultadoMemoria
+    );
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
+
   
 module.exports = {
     autenticar,
     cadastrar,
     pegar,
     pontosUsuario,
-    mediaDosUsuarios
+    mediaDosUsuarios,
+    contar,
+    abaixoMedia,
+    maiorPontuacaoUser
 };

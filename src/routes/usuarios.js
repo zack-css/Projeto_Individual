@@ -13,9 +13,23 @@ router.get("/pontosUsuario/:idUsuario", function (req, res) {
     usuarioController.pontosUsuario(req, res);
 });
 
+router.get("/maiorPontuacaoUser/:idUsuario", function (req, res) {
+    usuarioController.maiorPontuacaoUser(req, res);
+});
+
 router.get("/mediaDosUsuarios", function (req, res) {
     usuarioController.mediaDosUsuarios(req, res);
 });
+
+router.get("/contar", function (req, res) {
+    usuarioController.contar(req, res);
+});
+
+router.get("/abaixoMedia", function (req, res) {
+    usuarioController.abaixoMedia(req, res);
+});
+
+
 
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
