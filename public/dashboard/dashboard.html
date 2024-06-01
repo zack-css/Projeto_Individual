@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario - Pagina do usuario</title>
+    <title>DASHBOARD</title>
 
 
     <script src="../js/sessao.js"></script>
@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="../css/style2.css">
     <link rel="icon" href="../assets/imgs/xadrez.png">
 
-    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body
-    onload="inicializarPagina()">
+<body onload="inicializarPagina()">
 
     <div class="janela">
         <div class="header-left">
@@ -27,8 +26,8 @@
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="btn-nav">
-                <h3>Home</h3>
+            <div class="btn-nav-escolhida">
+                <h3 style="color: white;">Home</h3>
             </div>
 
             <div class="btn-nav">
@@ -36,7 +35,6 @@
                     <h3>Jogar Novamente</h3>
                 </a>
             </div>
-
 
             <div class="btn-nav">
                 <a href="./mural.html">
@@ -51,27 +49,51 @@
         </div>
         <div class="dash">
             <div class="cards">
-                <div class="kpi" id="div_qtdUsuariosAbaixoMeida">
-                    <span class="tooltiptext">Usuarios Acima da média</span>
+                <div class="kpi">
+                    <!-- <span class="tooltiptext">Usuarios</span> -->
+                    <div class="centralizar_icon">
+                        <img class="icon_kpi" src="../assets/imgs/user.png" alt="icon de user">
+                        <div style="margin-left: 3rem;" class="info">USUÁRIOS</div>
+                    </div>
+                    <div id="div_qtdUsuarios" class="resultado_kpi"></div>
                 </div>
-                <div class="kpi" id="div_qtdUsuarios">
-                    <span class="tooltiptext">Usuarios</span>
+                <div class="kpi">
+                    <div class="centralizar_icon">
+                        <img class="icon_kpi" src="../assets/imgs/best.png" alt="icon de user">
+                        <div style="margin-left: 1rem;" class="info">MELHOR PONTUAÇÃO</div>
+                    </div>
+                    <div id="div_maiorPontualidadeUser" class="resultado_kpi"></div>
                 </div>
-                <div class="kpi" id="div_maiorPontualidadeUser">
-                    <span class="tooltiptext">Melhor Pontuação</span>
+                <div class="kpi">
+                    <!-- <span class="tooltiptext">Melhor Pontuação</span> -->
+                    <div class="centralizar_icon">
+                        <img class="icon_kpi" src="../assets/imgs/champion.png" alt="icon de user">
+                        <div style="margin-left: 1rem;" class="info">MAIOR PONTUAÇÃO</div>
+                    </div>
+                    <div id="div_menorTempoTabelaGeral" class="resultado_kpi"></div>
                 </div>
             </div>
+            <div class="graficos_painel">
+                <div class="dash-right">
 
-            <div class="dash-right">
+                    <div class="graph">
+                        <canvas width="200px" height="200px" id="canvas_grafico"></canvas>
 
+                    </div>
 
-                <div class="graph">
-                    <canvas width="200px" height="200px" id="canvas_grafico"></canvas>
+                </div>
+                <div class="dash-right-2">
 
-                    <canvas width="200px" height="200px" id="canvas_grafico2"></canvas>
+                    <div class="graph">
+
+                        <canvas width="200px" height="200px" id="canvas_grafico2"></canvas>
+                    </div>
+
                 </div>
 
             </div>
+
+
 
         </div>
 
@@ -84,13 +106,13 @@
 
 <script>
 
-function inicializarPagina() {
-            obterDados();
-            obterDados2();
-            obterDadosKpiUsuarios();
-            obterDadosKpiAbaixoMedia();
-            obterDadosMaiorPontuacaoUser();
-        }
+    function inicializarPagina() {
+        obterDados();
+        obterDados2();
+        obterDadosKpiUsuarios();
+        obterDadosKpiMelhorPontuacao();
+        obterDadosMaiorPontuacaoUser();
+    }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     // verificar_autenticacao();
@@ -149,13 +171,13 @@ function inicializarPagina() {
             });
     }
 
-    function obterDadosKpiAbaixoMedia() {
-        fetch(`/usuarios/abaixoMedia`, { cache: 'no-store' }).then(function (response) {
+    function obterDadosKpiMelhorPontuacao() {
+        fetch(`/usuarios/melhorPontuacao`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    KpiAbaixoMedia(resposta);
+                    KpiMelhorPontuacao(resposta);
                 });
             } else {
                 console.error('Erro no obterDadosKpiUsuarios');
@@ -203,7 +225,7 @@ function inicializarPagina() {
 
         }
 
-        //     div_qtdUsuariosAbaixoMeida.innerHTML += `
+        //     div_menorTempoTabelaGeral.innerHTML += `
 
         // ${dados.mediaPontosUsuarios}
 
@@ -218,86 +240,93 @@ function inicializarPagina() {
                     label: 'Média dos usuarios',
                     data: [dados.mediaPontosUsuarios],
                     backgroundColor: [
-                        '#febf39'
+                        '#fff89a'
 
                     ],
                     borderColor: [
-                        'white'
+                        'black'
 
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 },
                 ]
             },
             options: {
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 50,
-                            min: 0
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Gráfico sobre a média de pontos das partidas',
+                        font: {
+                            size: 18
                         }
-                    }],
+                    }
                 }
+
             }
         });
 
     }
-
+    let delayed = false; // Adicionando a declaração da variável delayed
     function plotar2(resposta) {
         console.log('iniciando plotagem...');
 
-        var dados = {
-            resultadoTempo: []
-
-        }
-
-        for (var i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            dados.resultadoTempo.push(registro.resultadoTempo)
-
-
-        }
-
-        // div_qtdUsuarios.innerHTML += `
-
-        //     ${dados.resultadoTempo}
-
-        // `; 
+        const dados = resposta.map(registro => registro.resultadoTempo);
 
         const ctx = document.getElementById('canvas_grafico2').getContext('2d');
         const myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
-                labels: ['Tempo'],
+                labels: dados.map((_, index) => `${index + 1}º `),
                 datasets: [{
                     label: 'Sua Pontuação',
-                    data: [dados.resultadoTempo],
-                    backgroundColor: [
-                        'black'
-
-                    ],
-                    borderColor: [
-                        'white'
-
-                    ],
-                    borderWidth: 1
-                },
-                ]
+                    data: dados,
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    pointStyle: 'circle',
+                    pointRadius: 6,
+                    pointHoverRadius: 15,
+                    fill: true
+                }]
             },
+
             options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 50,
-                            min: 0
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
                         }
-                    }],
+                        return delay;
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Gráfico sobre o seu histórico',
+                        font: {
+                            size: 20
+                        }
+                    }
                 }
             }
         });
-
     }
 
     function KpiQtdUsuarios(resposta) {
@@ -317,21 +346,21 @@ function inicializarPagina() {
         div_qtdUsuarios.innerHTML += `${dados.QtdUsuarios}`;
     }
 
-    function KpiAbaixoMedia(resposta) {
+    function KpiMelhorPontuacao(resposta) {
 
         var dados = {
-            usuarios_abaixo_da_media: []
+            menor_tempo_geral: []
 
         }
 
         for (var i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            dados.usuarios_abaixo_da_media.push(registro.usuarios_abaixo_da_media)
+            dados.menor_tempo_geral.push(registro.menor_tempo_geral)
 
 
         }
 
-        div_qtdUsuariosAbaixoMeida.innerHTML += `${dados.usuarios_abaixo_da_media}`;
+        div_menorTempoTabelaGeral.innerHTML += `${dados.menor_tempo_geral}`;
 
     }
 

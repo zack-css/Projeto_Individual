@@ -1,12 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Heebo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poetsen+One&display=swap');
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Bangers', cursive;
-    background-color: #161618;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background: linear-gradient(to bottom, rgb(255, 248, 154), #ffffff);
     height: 100%;
+    background-repeat: no-repeat;
   }
   html {
     height: 100%;
@@ -17,17 +19,14 @@ body {
     width: flex;
     height: 100%;
     /* justify-content: space-between; */
-    
-    font-family: "Exo 2", sans-serif;
-  }
+    }
   
-  .header-left a {
-    text-decoration: none;
-    color:#32b9cd;
+
+  #icone:hover{
+    transition: 200ms;
+    transform: scale(1.1);
   }
-  
   .header-left {
-    font-family: 'Bangers', cursive;
     position: fixed;
     top: 0;
     left: 0;
@@ -38,9 +37,8 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border-right: 3px solid #32b9cd;
-    background-color: #212124;
-    /* border: 3px solid pink; */
+    border-right: 3px solid black;
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255 245 195));
   }
   
   .dash-right {
@@ -61,23 +59,6 @@ body {
     
   }
 
-  .header-left img:hover {
-
-    animation: rotacao 2s linear;
-    
-  }
-
-
-
-  @keyframes rotacao {
-    to {
-      transform: rotatey(360deg);
-    }
-    from {
-      transform: rotatey(0);
-    }
-  }
-  
   .hello {
     width: 100%;
     display: flex;
@@ -85,51 +66,97 @@ body {
   }
   
   .hello h3 {
-    color: #e3b062;
+    color: #000000;
     font-weight: 300;
     font-size: 1.2rem;
+    font-weight: bolder;
+
   }
   
   .hello h3 span {
-    font-weight: bolder;
-    color: #febf39;
+    color: #000000;
   }
   
   .btn-nav {
-    width: 40%;
-    color: #febf39;
-    background-color: #161618;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border-radius: 10px;
     text-align: center;
     padding: 2% 5%;
     cursor: pointer;
+    width: 8rem;
+    border: solid 4px black;
+    text-decoration: none;
+    color:black;
+
+  }
+
+  .btn-nav-escolhida{
+    background-color: #000000;
+    border-radius: 10px;
+    text-align: center;
+    padding: 2% 5%;
+    cursor: pointer;
+    width: 10rem;
+    border: solid 4px rgb(255, 255, 255);
+    box-shadow: 3px 6px 8px #000000;;
+
   }
 
   .btn-nav:hover {
-    color: #161618;
-    background-color:#febf39 ;
+    background-color:#000000 ;
     transition: 300ms;
+
   }
-  
+  .btn-nav a{
+    text-decoration: none;
+    color:black;
+  }
+
+  .btn-nav a:hover{
+    text-decoration: none;
+    color:white;
+  }
+
+  .btn-nav:hover a {
+    color: white;
+}
+
+
   
   .btn-nav h3,
-  .btn-logout h3 {
+  .btn-logout h3,
+  .btn-nav-escolhida {
     margin: 0;
     padding: 0;
   }
+
   
   .btn-logout {
     margin: 0;
     padding: 0;
-    width: 20%;
-    background-color: #161618;
-    color: #32b9cd;
+    background-color: #ffffff;
+    color: #000000;
     border-radius: 10px;
     text-align: center;
     padding: 10px 15px;
     margin-bottom: 100px;
     cursor: pointer;
+    width: 8rem;
+    border: solid 4px black;
   }
+  .btn-logout:hover{
+    background-color: black;
+  }
+
+  .btn-logout h3:hover{
+    text-decoration: none;
+    color:white;
+  }
+  
+  .btn-logout:hover h3 {
+    color: white;
+}
+
 
   
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Heebo&display=swap');
@@ -137,7 +164,6 @@ body {
     width: 90%;
     /* border: 3px solid pink; */
     color: rgb(216, 216, 216);
-    font-family: "Exo 2", sans-serif;
   }
   
   .dash-right .avisos .container {
@@ -168,7 +194,6 @@ body {
   
   .dash-right .avisos .div-form button {
     cursor: pointer;
-    font-family: "Exo 2", sans-serif;
     border: 0;
     border-radius: 5px;
     font-weight: 600;
@@ -183,7 +208,6 @@ body {
   
   .publicacao-btn-editar {
     cursor: pointer;
-    font-family: "Exo 2", sans-serif;
     border: 0;
     border-radius: 5px;
     font-weight: 600;
@@ -238,21 +262,39 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 8rem;
+    font-weight: bold;
   }
+  
   .dash-right {
     display: block;
-    width: 55%;
-    height: 50%;
-    background-color: #32b9cd;
-    border-radius: 5px;
-    margin-top  : 30px;
-    margin-left: 24rem;
+    width: 20rem;
+    height: 19rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-left: 18rem;
+    border: solid 4px rgb(0, 0, 0);
+    font-weight: bold;
+    padding: 1rem 3rem;
+}
 
-  }
+.dash-right-2 {
+  display: block;
+  width: 20rem;
+  height: 19rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-left: 9rem;
+  border: solid 4px rgb(0, 0, 0);
+  font-weight: bold;
+  padding: 1rem 3rem;
+}
+
   .kpi{
     display: flex;
-    height: 100px;
-    width: 100px;
+    height: 8rem;
+    width: 15rem;
     background-color: white;
     color: black;
     justify-content: center;
@@ -260,13 +302,19 @@ body {
     border-radius: 25px;
     flex-wrap: wrap;
     cursor: pointer;
+    flex-direction: column;
+    text-align: center;
+    border: 4px solid black;
     
+  }
+  .kpi:hover{
+    box-shadow: -8px 8px black;
   }
 
   .kpi:hover{
     cursor: pointer;
-    background-color:  #32b9cd;
-    color: #febf39;
+    background-color:  #6e6e6e;
+    color: #ffffff;
   }
 
   .cards  {
@@ -275,7 +323,7 @@ body {
     width: 71%;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #e3b062;
+    background-color: #5e5e5ebe;
     border-radius: 35px;
     margin-right: 25px;
     margin-top  : 25px;
@@ -305,4 +353,22 @@ body {
     height: 100%;
     flex-direction: column;
   }
-  
+  .graficos_painel{
+    display: flex;
+  }
+  .centralizar_icon{
+    display: flex;
+    width: 100%;
+    font-size: 0.9rem;
+    align-items: center;
+    font-weight: 600;
+  }
+  .resultado_kpi{
+    font-size: 3rem;
+    font-weight: bolder;
+  }
+  .icon_kpi{
+    width: 30px;
+    height: 30px;
+    margin-left: 0.4rem;
+  }

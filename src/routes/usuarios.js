@@ -25,8 +25,8 @@ router.get("/contar", function (req, res) {
     usuarioController.contar(req, res);
 });
 
-router.get("/abaixoMedia", function (req, res) {
-    usuarioController.abaixoMedia(req, res);
+router.get("/melhorPontuacao", function (req, res) {
+    usuarioController.melhorPontuacao(req, res);
 });
 
 

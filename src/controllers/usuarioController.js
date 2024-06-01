@@ -155,8 +155,8 @@ function pontosUsuario(req, res) {
     });
   }
 
-  function abaixoMedia(req, res) {
-    usuarioModel.abaixoMedia().then(function (resultado) {
+  function melhorPontuacao(req, res) {
+    usuarioModel.melhorPontuacao().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -177,6 +177,6 @@ module.exports = {
     pontosUsuario,
     mediaDosUsuarios,
     contar,
-    abaixoMedia,
+    melhorPontuacao,
     maiorPontuacaoUser
 }

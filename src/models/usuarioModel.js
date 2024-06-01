@@ -37,7 +37,7 @@ function pegar(pontos, idUsuario) {
   function pontosUsuario(idUsuario) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pontosUsuario()");
     var instrucao = `
-    SELECT tempo as resultadoTempo FROM resultadoMemoria where fkUsuario = ${idUsuario} order by idJogo desc limit 1;
+    SELECT tempo as resultadoTempo FROM resultadoMemoria where fkUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -74,15 +74,12 @@ function contar() {
     return database.executar(instrucao);
   }
 
-  function abaixoMedia() {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function contar()");
+  function melhorPontuacao() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function melhorPontuacao()");
     var instrucao = `
-    SELECT COUNT(DISTINCT fkUsuario) AS usuarios_abaixo_da_media
+    SELECT MIN(tempo) AS menor_tempo_geral
     FROM resultadoMemoria
-    WHERE tempo < (
-        SELECT  round(avg(tempo),0)
-        FROM resultadoMemoria
-    );
+    ;
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -97,6 +94,6 @@ module.exports = {
     pontosUsuario,
     mediaDosUsuarios,
     contar,
-    abaixoMedia,
+    melhorPontuacao,
     maiorPontuacaoUser
 };
