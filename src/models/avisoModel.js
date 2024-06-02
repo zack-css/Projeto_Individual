@@ -5,14 +5,13 @@ function listar() {
     var instrucaoSql = `
         SELECT 
             a.id AS idAviso,
-            a.titulo,
             a.descricao,
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
             u.email,
             u.senha
-        FROM feedback a
+        FROM comunidade a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id;
     `;
@@ -25,14 +24,13 @@ function pesquisarDescricao(texto) {
     var instrucaoSql = `
         SELECT 
             a.id AS idAviso,
-            a.titulo,
             a.descricao,
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
             u.email,
             u.senha
-        FROM feedback a
+        FROM comunidade a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id
         WHERE a.descricao LIKE '${texto}';
@@ -46,14 +44,13 @@ function listarPorUsuario(idUsuario) {
     var instrucaoSql = `
         SELECT 
             a.id AS idAviso,
-            a.titulo,
             a.descricao,
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
             u.email,
             u.senha
-        FROM feedback a
+        FROM comunidade a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id
         WHERE u.id = ${idUsuario};
@@ -65,7 +62,7 @@ function listarPorUsuario(idUsuario) {
 function publicar(descricao, idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ",descricao, idUsuario);
     var instrucaoSql = `
-        INSERT INTO feedback (descricao, fk_usuario) VALUES ('${descricao}', ${idUsuario});
+        INSERT INTO comunidade (descricao, fk_usuario) VALUES ('${descricao}', ${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
