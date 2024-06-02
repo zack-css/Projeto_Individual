@@ -29,7 +29,9 @@ router.get("/melhorPontuacao", function (req, res) {
     usuarioController.melhorPontuacao(req, res);
 });
 
-
+router.get("/ultimoPonto/:idUsuario", function (req, res) {
+    usuarioController.ultimoPonto(req, res);
+});
 
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
