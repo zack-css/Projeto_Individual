@@ -43,9 +43,9 @@ header {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    width: 100%;
+    width: 31.5vw;
     max-width: 800px;
     margin: 0 auto;
 }

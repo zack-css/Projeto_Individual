@@ -16,8 +16,8 @@ function limparSessao() {
     window.location = "../login.html";
 }
 
+// Seleciona elementos do DOM para o grid de cartas e o temporizador
 const grid = document.querySelector('.grid');
-// const player = document.querySelector('.player');
 const tempo = document.querySelector('.time');
 
 
@@ -25,11 +25,11 @@ const tempo = document.querySelector('.time');
 
 const personagens = [
     'peao_branco',
-    // 'cavalo_branco',
-    // 'bispo_branco',
-    // 'torre_branco',
-    // 'rainha_branco_peca',
-    // 'rei_branco',
+    'cavalo_branco',
+    'bispo_branco',
+    'torre_branco',
+    'rainha_branco_peca',
+    'rei_branco',
     // 'peao_preto',
     // 'bispo_preto',
     // 'cavalo_preto',
@@ -38,6 +38,8 @@ const personagens = [
     // 'rei_preto',
 ];
 
+
+// Função para criar um elemento HTML com uma classe específica
 const criarElemento = (tag, className) => {
     const element = document.createElement(tag);
     element.className = className;
@@ -47,16 +49,15 @@ const criarElemento = (tag, className) => {
 let primeiraCarta = '';
 let segundaCarta = '';
 
+// Função para verificar se o jogo terminou
 const fimdeJogo = () => {
     const carddasabilitado = document.querySelectorAll('.card-dasabilitado');
 
-    if (carddasabilitado.length == 2) {
-        clearInterval(this.loop);
-        // alert(`Parabéns, ${player.innerHTML}. Seu tempo foi ${tempo.innerHTML} segundos`)
+    // Se todas as cartas estão desabilitadas (viradas), o jogo termina
+    if (carddasabilitado.length == 12) {
+        clearInterval(this.loop); // Para o temporizador
 
-        let tempoFinal = parseInt(tempo.innerHTML, 10); // Extrai e converte para número
-
-
+        let tempoFinal = parseInt(tempo.innerHTML, 10); 
         var idUsuario = sessionStorage.getItem('ID_USUARIO')
 
         fetch(`/usuarios/pegar/${idUsuario}`, {
@@ -79,11 +80,14 @@ const fimdeJogo = () => {
     }
 }
 
+
+// Função para verificar se as cartas viradas são iguais
 const verificarCards = () => {
 
     const primeiroPersonagem = primeiraCarta.getAttribute('data-personagem');
     const segundoPersonagem = segundaCarta.getAttribute('data-personagem');
 
+     // Se as cartas são iguais, desabilita-as
     if (primeiroPersonagem == segundoPersonagem) {
 
         primeiraCarta.firstChild.classList.add('card-dasabilitado');
@@ -95,6 +99,7 @@ const verificarCards = () => {
         fimdeJogo();
 
     } else {
+         // Se as cartas são diferentes, vira-as novamente após 0.5 segundos
         setTimeout(() => {
 
             primeiraCarta.classList.remove('revelar-card');
@@ -109,25 +114,29 @@ const verificarCards = () => {
 
 }
 
+// Função para revelar a carta quando clicada
 const revelarCard = ({ target }) => {
-    if (target.parentNode.className.includes('revelar-card')) {
-        return;
+    
+     // Verifica se o elemento pai do target já contém a classe 'revelar-card' (se a carta já está virada)
+     if (target.parentNode.className.includes('revelar-card')) {
+        return; // Se já está virada, não faz nada
     }
 
+    // Se 'primeiraCarta' está vazia, significa que essa é a primeira carta a ser virada
     if (primeiraCarta == '') {
-        target.parentNode.classList.add('revelar-card')
-        primeiraCarta = target.parentNode;
+        target.parentNode.classList.add('revelar-card'); // Adiciona a classe 'revelar-card' ao elemento pai do target (vira a carta)
+        primeiraCarta = target.parentNode; // Define 'primeiraCarta' como o elemento pai do target (carta atual)
+    } else if (segundaCarta == '') { // Se 'segundaCarta' está vazia, significa que essa é a segunda carta a ser virada
+        target.parentNode.classList.add('revelar-card'); // Adiciona a classe 'revelar-card' ao elemento pai do target (vira a carta)
+        segundaCarta = target.parentNode; // Define 'segundaCarta' como o elemento pai do target (carta atual)
 
-    } else if (segundaCarta == '') {
-        target.parentNode.classList.add('revelar-card')
-        segundaCarta = target.parentNode;
-
-        verificarCards();
-
+        verificarCards(); // Verifica se as duas cartas viradas são iguais
     }
 }
 
+// Função para criar uma carta do jogo
 const CriarCard = (personagem) => {
+
     // vai criar a div card la do HTML
     const card = criarElemento('div', 'card');
     const frente = criarElemento('div', 'face frente');
@@ -145,8 +154,11 @@ const CriarCard = (personagem) => {
     return card;
 }
 
+
+// Função para carregar o jogo (embaralha e adiciona as cartas ao grid)
 const loadGame = () => {
 
+    // cria um novo array contendo duas cópias de cada personagem para formar os pares no jogo de memória.
     const duplicarCard = [...personagens, ...personagens];
 
     const embaralharCard = duplicarCard.sort(() => Math.random() - 0.5);
@@ -167,7 +179,6 @@ const IniciarTempo = () => {
 }
 
 window.onload = () => {
-    // player.innerHTML = localStorage.getItem('player');
     IniciarTempo();
     loadGame();
 }

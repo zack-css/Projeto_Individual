@@ -12,7 +12,7 @@ function autenticar(email, senha) {
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
-    
+
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
@@ -23,7 +23,7 @@ function cadastrar(nome, email, senha) {
 }
 
 function pegar(pontos, idUsuario) {
-    
+
     var instrucao = `
 
     INSERT INTO resultadoMemoria VALUES ( null, ${pontos}, ${idUsuario}
@@ -34,7 +34,7 @@ function pegar(pontos, idUsuario) {
     return database.executar(instrucao);
 }
 
-  function pontosUsuario(idUsuario) {
+function pontosUsuario(idUsuario) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pontosUsuario()");
     var instrucao = `
     SELECT tempo as resultadoTempo FROM resultadoMemoria where fkUsuario = ${idUsuario};
@@ -72,9 +72,9 @@ function contar() {
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-  }
+}
 
-  function melhorPontuacao() {
+function melhorPontuacao() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function melhorPontuacao()");
     var instrucao = `
     SELECT MIN(tempo) AS menor_tempo_geral
@@ -83,8 +83,8 @@ function contar() {
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-  }
-  function ultimoPonto(idUsuario) {
+}
+function ultimoPonto(idUsuario) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ultimoPonto()");
     var instrucao = `
     SELECT tempo as ultimo_ponto FROM resultadoMemoria where fkUsuario = ${idUsuario} order by idJogo desc limit 1;    
@@ -92,9 +92,42 @@ function contar() {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+function listar() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucaoSql = `
+    WITH RankedResults AS (
+        SELECT 
+            a.idJogo,
+            a.tempo,
+            a.fkUsuario,
+            u.id AS idUsuario,
+            u.nome,
+            u.email,
+            u.senha,
+            ROW_NUMBER() OVER (PARTITION BY a.fkUsuario ORDER BY a.tempo ASC) AS ran
+        FROM resultadoMemoria a
+        INNER JOIN usuario u
+            ON a.fkUsuario = u.id
+    )
+    SELECT 
+        idJogo,
+        tempo,
+        fkUsuario,
+        idUsuario,
+        nome,
+        email,
+        senha
+    FROM RankedResults
+    WHERE ran = 1
+    ORDER BY tempo ASC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
-  
+
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -104,5 +137,6 @@ module.exports = {
     contar,
     melhorPontuacao,
     maiorPontuacaoUser,
-    ultimoPonto
+    ultimoPonto,
+    listar
 };

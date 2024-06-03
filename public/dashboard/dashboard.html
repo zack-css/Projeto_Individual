@@ -18,12 +18,12 @@
 
 <body onload="inicializarPagina()">
 
-    <div class="janela">
+    <div id="bodyGeral" class="janela">
         <div class="header-left">
             <img id="icone" src="../assets/imgs/logo.png">
 
             <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                <h3>Olá,  <span id="b_usuario">usuário</span>!</h3>
             </div>
 
             <div class="btn-nav-escolhida">
@@ -53,22 +53,22 @@
                     <!-- <span class="tooltiptext">Usuarios</span> -->
                     <div class="centralizar_icon">
                         <img class="icon_kpi" src="../assets/imgs/user.png" alt="icon de user">
-                        <div style="margin-left: 3rem;" class="info">USUÁRIOS</div>
+                        <div class="info">QUANTIDADE DE USUÁRIOS</div>
                     </div>
                     <div id="div_qtdUsuarios" class="resultado_kpi"></div>
                 </div>
                 <div class="kpi">
                     <div class="centralizar_icon">
                         <img class="icon_kpi" src="../assets/imgs/best.png" alt="icon de user">
-                        <div style="margin-left: 1rem;" class="info">MELHOR PONTUAÇÃO</div>
+                        <div style="margin-left: 1rem;" class="info">SEU MENOR TEMPO </div>
                     </div>
                     <div id="div_maiorPontualidadeUser" class="resultado_kpi"></div>
                 </div>
-                <div class="kpi">
+                <div  onclick="abrirRanking()"  class="kpi">
                     <!-- <span class="tooltiptext">Melhor Pontuação</span> -->
                     <div class="centralizar_icon">
                         <img class="icon_kpi" src="../assets/imgs/champion.png" alt="icon de user">
-                        <div style="margin-left: 1rem;" class="info">MAIOR PONTUAÇÃO</div>
+                        <div class="info">MENOR PONTUAÇÃO GERAL (CLIQUE AQUI)</div>
                     </div>
                     <div id="div_menorTempoTabelaGeral" class="resultado_kpi"></div>
                 </div>
@@ -98,6 +98,14 @@
         </div>
 
     </div>
+    <div id="modal" class="modal">
+        <h2 class="titulo_rank"> RANKING DE PONTUAÇÃO</h2>
+            <div  class="feed-container">
+                <table id="feed_container">
+                </table>
+            </div>
+        <div onclick="fecharModal()" id="fechar">X</div>
+    </div>
 
 
 </body>
@@ -112,7 +120,7 @@
         obterDadosKpiUsuarios();
         obterDadosKpiMelhorPontuacao();
         obterDadosMaiorPontuacaoUser();
-        obterDados3();
+        atualizarFeed();
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -221,9 +229,9 @@
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Média', 'Pontuação'],
+                labels: ['Média', 'Pontuação Atual'],
                 datasets: [{
-                    label: 'Média dos usuarios',
+                    label: 'Tempo em (s)',
                     data: [dados.mediaPontosUsuarios[0], dados.ultimo_ponto[0]],
                     backgroundColor: [
                         '#fff89a'
@@ -246,7 +254,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Gráfico sobre a média de pontos das partidas',
+                        text: 'Média de pontos de todas as partidas',
                         font: {
                             size: 18
                         }
@@ -257,7 +265,7 @@
         });
 
     }
-    let delayed = false; 
+    let delayed = false;
     function plotar2(resposta) {
         console.log('iniciando plotagem...');
 
@@ -305,7 +313,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Gráfico sobre o seu histórico',
+                        text: 'Histórico',
                         font: {
                             size: 20
                         }
@@ -346,7 +354,7 @@
 
         }
 
-        div_menorTempoTabelaGeral.innerHTML += `${dados.menor_tempo_geral}`;
+        div_menorTempoTabelaGeral.innerHTML += `${dados.menor_tempo_geral}s`;
 
     }
 
@@ -364,8 +372,81 @@
 
         }
 
-        div_maiorPontualidadeUser.innerHTML += `${dados.menor_tempo}`;
+        div_maiorPontualidadeUser.innerHTML += `${dados.menor_tempo}s`;
+
+    }
+    function abrirRanking() {
+        modal.style.display = "block";
+        bodyGeral.style.filter = "blur(5px)"
+    }
+
+    function fecharModal() {
+        modal.style.display = "none";
+        bodyGeral.style.filter = "blur(0)"
 
     }
 
+    function atualizarFeed() {
+        fetch("/usuarios/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    var trTagFixo = document.createElement("tr");
+                    var thTagPosicao = document.createElement("th");
+                    var thTagNome = document.createElement("th");
+                    var thTagTempo = document.createElement("th");
+
+                    thTagPosicao.innerHTML = `Posição`;
+                    thTagNome.innerHTML = `Nome`;
+                    thTagTempo.innerHTML = `Tempo`
+
+                    feed.appendChild(trTagFixo);
+                    trTagFixo.appendChild(thTagPosicao);
+                    trTagFixo.appendChild(thTagNome);
+                    trTagFixo.appendChild(thTagTempo);
+
+                    var contagem = 1;
+
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var trTag = document.createElement("tr");
+                        var tdPosicao = document.createElement("td");
+                        var tdNome = document.createElement("td");
+                        var tdTempo = document.createElement("td");
+
+                        tdPosicao.innerHTML = `${contagem++}º`;
+                        tdNome.innerHTML = `${publicacao.nome}`;
+                        tdTempo.innerHTML = `${publicacao.tempo}`;
+
+                        feed.appendChild(trTag);
+                        trTag.appendChild(tdPosicao);
+                        trTag.appendChild(tdNome);
+                        trTag.appendChild(tdTempo);
+
+
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
 </script>

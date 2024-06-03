@@ -41,4 +41,8 @@ router.post("/pegar/:idUsuario", function (req, res) {
     usuarioController.pegar(req, res);
 });
 
+router.get("/listar", function (req, res) {
+    usuarioController.listar(req, res);
+});
+
 module.exports = router;
