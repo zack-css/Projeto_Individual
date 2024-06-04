@@ -229,7 +229,7 @@
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Média', 'Pontuação Atual'],
+                labels: ['Média', 'Sua Pontuação Atual'],
                 datasets: [{
                     label: 'Tempo em (s)',
                     data: [dados.mediaPontosUsuarios[0], dados.ultimo_ponto[0]],
@@ -254,7 +254,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Média de pontos de todas as partidas',
+                        text: 'Média de pontos dos usuarios',
                         font: {
                             size: 18
                         }

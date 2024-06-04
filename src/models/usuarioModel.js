@@ -95,31 +95,23 @@ function ultimoPonto(idUsuario) {
 function listar() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-    WITH RankedResults AS (
-        SELECT 
-            a.idJogo,
-            a.tempo,
-            a.fkUsuario,
-            u.id AS idUsuario,
-            u.nome,
-            u.email,
-            u.senha,
-            ROW_NUMBER() OVER (PARTITION BY a.fkUsuario ORDER BY a.tempo ASC) AS ran
-        FROM resultadoMemoria a
-        INNER JOIN usuario u
-            ON a.fkUsuario = u.id
-    )
     SELECT 
-        idJogo,
-        tempo,
-        fkUsuario,
-        idUsuario,
-        nome,
-        email,
-        senha
-    FROM RankedResults
-    WHERE ran = 1
-    ORDER BY tempo ASC;
+    a.idJogo,
+    a.tempo,
+    a.fkUsuario,
+    u.id AS idUsuario,
+    u.nome,
+    u.email,
+    u.senha
+FROM resultadoMemoria a
+INNER JOIN usuario u
+    ON a.fkUsuario = u.id
+WHERE a.tempo = (
+    SELECT MIN(referencia.tempo)
+    FROM resultadoMemoria referencia
+    WHERE referencia.fkUsuario = a.fkUsuario
+)
+ORDER BY a.tempo ASC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

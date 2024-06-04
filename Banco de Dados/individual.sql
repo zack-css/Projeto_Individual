@@ -44,5 +44,31 @@ CREATE TABLE resultadoMemoria (
     
     -- ultima partida jogada pelo usuario
 	SELECT tempo as ultimo_ponto FROM resultadoMemoria where fkUsuario = 4 order by idJogo desc limit 1; 
-        
-        
+
+-- melhores jogadores
+SELECT 
+    a.idJogo,
+    a.tempo,
+    a.fkUsuario,
+    u.id AS idUsuario,
+    u.nome,
+    u.email,
+    u.senha
+FROM resultadoMemoria a
+INNER JOIN usuario u
+    ON a.fkUsuario = u.id
+WHERE a.tempo = (
+    SELECT MIN(referencia.tempo)
+    FROM resultadoMemoria referencia
+    WHERE referencia.fkUsuario = a.fkUsuario
+)
+ORDER BY a.tempo ASC;
+
+
+select * from resultadoMemoria;
+select * from comunidade;
+select * from usuario;
+
+
+
+

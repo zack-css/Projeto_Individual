@@ -24,18 +24,18 @@ const tempo = document.querySelector('.time');
 
 
 const personagens = [
-    'peao_branco',
-    'cavalo_branco',
-    'bispo_branco',
-    'torre_branco',
-    'rainha_branco_peca',
-    'rei_branco',
-    // 'peao_preto',
-    // 'bispo_preto',
-    // 'cavalo_preto',
-    // 'torre_preto',
-    // 'rainha_preta',
-    // 'rei_preto',
+    // 'peao_branco',
+    // 'cavalo_branco',
+    // 'bispo_branco',
+    // 'torre_branco',
+    // 'rainha_branco_peca',
+    // 'rei_branco',
+    'peao_preto',
+    'bispo_preto',
+    'cavalo_preto',
+    'torre_preto',
+    'rainha_preta',
+    'rei_preto',
 ];
 
 
@@ -116,7 +116,7 @@ const verificarCards = () => {
 
 // Função para revelar a carta quando clicada
 const revelarCard = ({ target }) => {
-    
+
      // Verifica se o elemento pai do target já contém a classe 'revelar-card' (se a carta já está virada)
      if (target.parentNode.className.includes('revelar-card')) {
         return; // Se já está virada, não faz nada
